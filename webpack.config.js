@@ -1,5 +1,6 @@
 const { resolve } = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const history = require('connect-history-api-fallback')
 const convert = require('koa-connect')
 
@@ -111,6 +112,8 @@ module.exports = {
    * 而 plugin，关注的不是文件的格式，而是在编译的各个阶段，会触发不同的事件，让你可以干预每个编译阶段
    */
   plugins: [
+    // 打包时清空 dist 文件夹
+    new CleanWebpackPlugin({}),
     /**
      * html-webpack-plugin 用来打包入口 html 文件
      * entry 配置的入口是 js 文件，webpack 以 js 文件为入口，遇到 import 用配置的 loader 加载引入文件
