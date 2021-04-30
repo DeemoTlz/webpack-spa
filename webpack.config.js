@@ -130,7 +130,7 @@ module.exports = {
        * 可以通过 filename 参数指定输出的文件名
        * html-webpack-plugin 也可以不指定 template 参数，他会使用默认的 html 模板
        */
-      template: './public/index.html'
+      template: './src/index.html'
       /**
        * 因为和 webpack 4 的兼容性问题，chunksSortMode 参数需要设置为 none
        * https://github.com/jantimon/html-webpack-plugin/issues/870
