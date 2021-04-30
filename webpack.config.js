@@ -1,6 +1,7 @@
 const { resolve } = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin')
 const history = require('connect-history-api-fallback')
 const convert = require('koa-connect')
 
@@ -32,7 +33,7 @@ module.exports = {
     // 打包输出目录
     path: resolve(__dirname, 'dist'),
     // 入口 js 的打包输出文件名
-    filename: 'index.js'
+    filename: 'main.[hash].js'
   },
 
   module: {
@@ -113,7 +114,8 @@ module.exports = {
    */
   plugins: [
     // 打包时清空 dist 文件夹
-    new CleanWebpackPlugin({}),
+    new CleanWebpackPlugin(),
+    new WebpackManifestPlugin(),
     /**
      * html-webpack-plugin 用来打包入口 html 文件
      * entry 配置的入口是 js 文件，webpack 以 js 文件为入口，遇到 import 用配置的 loader 加载引入文件
