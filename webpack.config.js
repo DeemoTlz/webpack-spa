@@ -1,4 +1,4 @@
-const { resolve } = require('path')
+const { resolve, join } = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin')
@@ -21,7 +21,7 @@ module.exports = {
    * 开发模式下使用 cheap-module-eval-source-map，生成对端 source map 能和源码每行对应，方便断点调试
    * 生产模式下使用 hidden-source-map，生成独立的 source map 文件，并且不在 js 文件中插入 source map 路径，用于在 error report 工具中查看（比如 Sentry）
    */
-  devtool: dev ? 'inline-cheap-module-source-map' : 'hidden-source-map',
+  devtool: dev ? 'cheap-module-eval-source-map' : 'hidden-source-map',
 
   // 配置页面入口 js 文件
   entry: './src/index.js',
@@ -34,6 +34,22 @@ module.exports = {
     path: resolve(__dirname, 'dist'),
     // 入口 js 的打包输出文件名
     filename: 'main.[hash].js'
+  },
+
+  /**
+   * https://v4.webpack.docschina.org/configuration/dev-server/
+   */
+  devServer: {
+    contentBase: join(__dirname, 'dist'),
+    // 端口
+    port: 8080,
+    // 启用 gzip 压缩
+    compress: true,
+    // 自动打开浏览器
+    open: false,
+    // string: 'none' | 'errors-only' | 'minimal' | 'normal' | 'verbose' object
+    // 通过此选项，可以精确控制要显示的 bundle 信息。如果你想要显示一些打包信息，但又不是显示全部，这可能是一个不错的妥协。
+    stats: 'errors-only'
   },
 
   module: {
