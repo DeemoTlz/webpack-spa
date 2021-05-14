@@ -21,7 +21,7 @@ module.exports = {
    * 开发模式下使用 cheap-module-eval-source-map，生成对端 source map 能和源码每行对应，方便断点调试
    * 生产模式下使用 hidden-source-map，生成独立的 source map 文件，并且不在 js 文件中插入 source map 路径，用于在 error report 工具中查看（比如 Sentry）
    */
-  devtool: dev ? 'inline-cheap-module-source-map' : 'hidden-source-map',
+  devtool: dev ? 'cheap-module-eval-source-map' : 'hidden-source-map',
 
   // 配置页面入口 js 文件
   entry: './src/index.js',
